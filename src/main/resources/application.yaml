@@ -1,0 +1,43 @@
+spring:
+  servlet:
+    multipart: #文件上传的文件大小设置
+      max-file-size: 10MB
+      max-request-size: 100MB
+  datasource:
+    #配置数据库连接属性和数据源
+    url: jdbc:mysql://localhost:3306/lhqs?serverTimezone=UTC
+    username: root
+    password: 159238
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+    druid:
+      filftes: stat,wall #开启监控防火墙功能 第一个要是stat不然监控不到sql
+      #开启druid的监控页和一些功能
+      stat-view-servlet:
+        enabled: true #开启druid的监控页并需要登录
+        login-username: admin
+        login-password: admin
+        reset-enable: false
+      #开启web的监控功能
+      web-stat-filter:
+        enabled: true
+        url-pattern: /* # 过滤所有url
+        exclusions: '*.js,*.gif,*.jpg,*.png,*.css,*.ico,/druid/*' #排除一些不必要的url
+
+      aop-patterns: com.lhqs.boot.* #利用aop对指定接口的执行时间和jdbc数进行记录
+
+      filter:
+        stat:
+          slow-sql-millis: 1000 #记录sql执行的时间超过1s就认为是慢sql记录到日志
+          log-slow-sql: true #开启记录sql执行日志
+          enabled: true #开启监控的功能
+        wall:
+          enabled: true
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: false
+
+
+
+
